@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estadística Pro - Herramienta Educativa</title>
+    <title>PROBABILIDAD Y ESTADISTICA - WEBAPP</title>
     <!-- Bootstrap 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Fonts -->
@@ -13,7 +13,7 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f8f9fa;
-            color: #333;
+            color: #383838;
         }
 
         .card {
@@ -29,7 +29,7 @@
         }
 
         .card-header {
-            background-color: #fff;
+            background-color: #f0ebeb;
             border-bottom: 2px solid #f1f1f1;
             font-weight: 600;
             border-radius: 12px 12px 0 0 !important;
@@ -74,19 +74,15 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="#">Estadística Pro</a>
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="dog mexicano.png" alt="Logo" width="40" height="40" class="me-2 rounded-circle">
+                PROBABILIDAD Y ESTADISTICA - WEBAPP
+            </a>
         </div>
     </nav>
 
     <div class="container my-5">
-        <!-- Header Section -->
-        <div class="row text-center mb-5">
-            <div class="col">
-                <h1 class="display-5 fw-bold">Calculadora Estadística Interactiva</h1>
-                <p class="lead text-muted">Una herramienta integral para cálculos descriptivos, visualizaciones y
-                    probabilidad.</p>
-            </div>
-        </div>
+
 
         <!-- Data Input Section -->
         <div class="row">
@@ -114,8 +110,9 @@
         <div class="row">
             <!-- Descriptive Stats -->
             <div class="col-md-4">
-                <div class="card h-100">
-                    <div class="card-header">Estadísticas Descriptivas</div>
+                <!-- Medidas de Tendencia Central -->
+                <div class="card mb-3">
+                    <div class="card-header">Medidas de Tendencia Central</div>
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item d-flex justify-content-between">Media: <span id="stat-mean"
@@ -124,6 +121,17 @@
                                     class="text-accent">-</span></li>
                             <li class="list-group-item d-flex justify-content-between">Moda: <span id="stat-mode"
                                     class="text-accent">-</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Parametros -->
+                <div class="card mb-3">
+                    <div class="card-header">Parámetros</div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between">N. de datos (n): <span
+                                    id="stat-n" class="text-accent">-</span></li>
                             <li class="list-group-item d-flex justify-content-between">Mínimo: <span id="stat-min"
                                     class="text-accent">-</span></li>
                             <li class="list-group-item d-flex justify-content-between">Máximo: <span id="stat-max"
@@ -133,22 +141,43 @@
                         </ul>
                     </div>
                 </div>
+
+                <!-- Amplitud de Clase -->
+                <div class="card">
+                    <div class="card-header">Amplitud de la Clase</div>
+                    <div class="card-body text-center">
+                        <div class="mb-2 p-2 border-bottom">
+                            <small class="text-muted">N. de clases (k):</small>
+                            <div class="small text-muted mb-1">k = √<span id="stat-k-n">-</span></div>
+                            <div id="stat-k" class="text-accent fw-bold fs-5">-</div>
+                        </div>
+                        <div class="p-2 border rounded bg-light mb-2">
+                            <small class="text-muted d-block">Dividiendo Rango / N. Clases:</small>
+                            <span id="stat-amp-formula" class="fw-bold">-</span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center gap-2">
+                            <span class="fs-5">A =</span>
+                            <span id="stat-amplitude" class="text-accent fs-5 fw-bold">-</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Frequency Table -->
             <div class="col-md-8">
                 <div class="card h-100">
-                    <div class="card-header">Tabla de Frecuencias (Datos Simples)</div>
+                    <div class="card-header">Tabla de Frecuencias</div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
                             <table class="table table-hover mb-0">
                                 <thead class="table-light">
                                     <tr>
-                                        <th>Dato (x)</th>
+                                        <th>Intervalo</th>
+                                        <th>Marca Clase (x)</th>
                                         <th>fi</th>
-                                        <th>fr</th>
+                                        <th>fr (%)</th>
                                         <th>Fi</th>
-                                        <th>Fr</th>
+                                        <th>Fr (%)</th>
                                     </tr>
                                 </thead>
                                 <tbody id="frequency-body">
@@ -168,7 +197,7 @@
         <div class="row mt-4">
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header">Histograma y Polígono de Frecuencias</div>
+                    <div class="card-header">Histograma</div>
                     <div class="card-body">
                         <div class="chart-container">
                             <canvas id="histogramChart"></canvas>
@@ -178,11 +207,29 @@
             </div>
             <div class="col-md-6">
                 <div class="card">
+                    <div class="card-header">Polígono de Frecuencias</div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <canvas id="polygonChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mt-4">
+                <div class="card">
                     <div class="card-header">Ojiva (Frecuencia Acumulada)</div>
                     <div class="card-body">
                         <div class="chart-container">
                             <canvas id="ogiveChart"></canvas>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mt-4">
+                <div class="card h-100">
+                    <div class="card-header">Diagrama de Tallo y Hoja</div>
+                    <div class="card-body">
+                        <pre id="stemLeaf" class="mb-0 text-monospace small" style="background: #f8f9fa;">...</pre>
                     </div>
                 </div>
             </div>
@@ -215,11 +262,19 @@
                                 <input type="text" id="setB" class="form-control" placeholder="3,4,5">
                             </div>
                         </div>
-                        <button class="btn btn-sm btn-dark mb-3" onclick="calculateSets()">Calcular Conjuntos</button>
-                        <div id="setResults">
-                            <p><strong>Unión (A ∪ B):</strong> <span id="set-union">-</span></p>
-                            <p><strong>Intersección (A ∩ B):</strong> <span id="set-inter">-</span></p>
-                            <p><strong>Diferencia (A - B):</strong> <span id="set-diff">-</span></p>
+                        <div class="d-flex gap-2 mb-3">
+                            <button class="btn btn-sm btn-dark" onclick="calculateSets()">Calcular Conjuntos</button>
+                            <button class="btn btn-sm btn-outline-dark"
+                                onclick="generateRandomSets()">Aleatorio</button>
+                        </div>
+                        <div id="setResults" class="small">
+                            <p class="mb-1"><strong>Conjunto A:</strong> <span id="set-a-echo">-</span></p>
+                            <p class="mb-1"><strong>Conjunto B:</strong> <span id="set-b-echo">-</span></p>
+                            <hr class="my-2">
+                            <p class="mb-1"><strong>Unión (A ∪ B):</strong> <span id="set-union">-</span></p>
+                            <p class="mb-1"><strong>Intersección (A ∩ B):</strong> <span id="set-inter">-</span></p>
+                            <p class="mb-1"><strong>Diferencia (A - B):</strong> <span id="set-diff-ab">-</span></p>
+                            <p class="mb-1"><strong>Diferencia (B - A):</strong> <span id="set-diff-ba">-</span></p>
                         </div>
                     </div>
                 </div>
@@ -278,6 +333,8 @@
                         <div class="d-flex gap-2 mb-3">
                             <button class="btn btn-sm btn-dark" onclick="calcPerm()">Permutación (nPr)</button>
                             <button class="btn btn-sm btn-dark" onclick="calcComb()">Combinación (nCr)</button>
+                            <button class="btn btn-sm btn-outline-dark"
+                                onclick="generateRandomComb()">Aleatorio</button>
                         </div>
                         <p>Resultado: <span id="combResult" class="text-accent fs-5">-</span></p>
                     </div>
@@ -307,12 +364,54 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        let histogramChart, ogiveChart, paretoChart;
+        let histogramChart, polygonChart, ogiveChart, paretoChart;
+
+        function customRound(val) {
+            return (val - Math.floor(val) > 0.5) ? Math.ceil(val) : Math.floor(val);
+        }
 
         function generateRandomData() {
             const rand = Array.from({ length: 20 }, () => Math.floor(Math.random() * 100));
             document.getElementById('dataInput').value = rand.join(', ');
             processData();
+        }
+
+        function generateRandomSets() {
+            const genSet = () => Array.from({ length: 5 + Math.floor(Math.random() * 4) }, () => Math.floor(Math.random() * 20)).join(', ');
+            document.getElementById('setA').value = genSet();
+            document.getElementById('setB').value = genSet();
+            calculateSets();
+        }
+
+        function generateRandomComb() {
+            const n = 5 + Math.floor(Math.random() * 11); // 5 to 15
+            const r = 1 + Math.floor(Math.random() * n);
+            document.getElementById('combN').value = n;
+            document.getElementById('combR').value = r;
+        }
+
+        function renderStemLeaf(data) {
+            const stems = {};
+            data.forEach(num => {
+                const s = Math.floor(num / 10);
+                const l = Math.floor(num % 10);
+                if (!stems[s]) stems[s] = [];
+                stems[s].push(l);
+            });
+
+            let output = "Tallo | Hoja\n";
+            output += "------|------\n";
+            const sortedStems = Object.keys(stems).map(Number).sort((a, b) => a - b);
+
+            if (sortedStems.length === 0) {
+                output += "Sin datos";
+            } else {
+                sortedStems.forEach(s => {
+                    const leaves = stems[s].sort((a, b) => a - b).join(" ");
+                    output += `${s.toString().padStart(5, ' ')} | ${leaves}\n`;
+                });
+            }
+            document.getElementById('stemLeaf').innerText = output;
         }
 
         function processData() {
@@ -333,6 +432,7 @@
             const freq = calculateFrequency(data);
             renderTable(freq);
             renderCharts(freq);
+            renderStemLeaf(data);
         }
 
         function renderStats(data) {
@@ -343,6 +443,10 @@
             const min = data[0];
             const max = data[n - 1];
             const range = max - min;
+
+            // Square Root method for k with custom rounding
+            const k = customRound(Math.sqrt(n)) || 1;
+            const amplitude = customRound(range / k) || 1;
 
             let median;
             if (n % 2 === 0) {
@@ -364,34 +468,64 @@
                 }
             }
             const modeStr = (maxFreq > 1) ? modes.join(', ') : 'Ninguna';
-
             document.getElementById('stat-mean').innerText = mean.toFixed(2);
             document.getElementById('stat-median').innerText = median.toFixed(2);
             document.getElementById('stat-mode').innerText = modeStr;
+            document.getElementById('stat-n').innerText = n;
+            document.getElementById('stat-k-n').innerText = n;
+            document.getElementById('stat-k').innerText = k;
             document.getElementById('stat-min').innerText = min;
             document.getElementById('stat-max').innerText = max;
             document.getElementById('stat-range').innerText = range;
+            document.getElementById('stat-amp-formula').innerText = `${range} / ${k} = ${customRound(range / k)}`;
+            document.getElementById('stat-amplitude').innerText = amplitude;
         }
 
         function calculateFrequency(data) {
-            const counts = {};
-            data.forEach(x => counts[x] = (counts[x] || 0) + 1);
+            const n = data.length;
+            const min = data[0];
+            const max = data[n - 1];
+            const range = max - min;
 
-            const sortedKeys = Object.keys(counts).map(Number).sort((a, b) => a - b);
-            const total = data.length;
+            // Square Root method for k with custom rounding
+            const k = customRound(Math.sqrt(n)) || 1;
+
+            // Strictly automatic amplitude
+            const amplitude = customRound(range / k) || 1;
+
+            const tempIntervals = [];
+            let currentLower = min;
+            let totalFi = 0;
+
+            // First pass: calculate fi and totalFi
+            for (let i = 0; i < k; i++) {
+                const lower = currentLower;
+                const upper = lower + amplitude;
+                const binData = data.filter(v => v >= lower && v <= upper);
+                const fi = binData.length;
+                totalFi += fi;
+
+                tempIntervals.push({ lower, upper, fi });
+                currentLower = upper + 1;
+            }
+
+            // Second pass: calculate fr and accumulated Fi/Fr
+            const intervals = [];
             let cumulative = 0;
-
-            return sortedKeys.map(x => {
-                const fi = counts[x];
-                cumulative += fi;
-                return {
-                    x: x,
-                    fi: fi,
-                    fr: fi / total,
+            tempIntervals.forEach(item => {
+                cumulative += item.fi;
+                const midpoint = (item.lower + item.upper) / 2;
+                intervals.push({
+                    label: `${item.lower}-${item.upper}`,
+                    midpoint: midpoint,
+                    fi: item.fi,
+                    fr: (item.fi * 100) / totalFi,
                     Fi: cumulative,
-                    Fr: cumulative / total
-                };
+                    Fr: (cumulative * 100) / totalFi
+                });
             });
+
+            return intervals;
         }
 
         function renderTable(freqTable) {
@@ -400,22 +534,23 @@
             freqTable.forEach(row => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                <td>${row.x}</td>
-                <td>${row.fi}</td>
-                <td>${row.fr.toFixed(4)}</td>
-                <td>${row.Fi}</td>
-                <td>${row.Fr.toFixed(4)}</td>
-            `;
+                    <td>${row.label}</td>
+                    <td>${row.midpoint.toFixed(2)}</td>
+                    <td>${row.fi}</td>
+                    <td>${row.fr.toFixed(2)}%</td>
+                    <td>${row.Fi}</td>
+                    <td>${row.Fr.toFixed(2)}%</td>
+                `;
                 tbody.appendChild(tr);
             });
         }
 
         function renderCharts(freqTable) {
-            const labels = freqTable.map(r => r.x);
+            const labels = freqTable.map(r => r.label);
             const dataFi = freqTable.map(r => r.fi);
             const dataFiCum = freqTable.map(r => r.Fi);
 
-            // Histogram & Polygon
+            // Histogram
             if (histogramChart) histogramChart.destroy();
             const ctxH = document.getElementById('histogramChart').getContext('2d');
             histogramChart = new Chart(ctxH, {
@@ -430,16 +565,42 @@
                         borderWidth: 1,
                         barPercentage: 1,
                         categoryPercentage: 1
-                    }, {
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { title: { display: true, text: 'Intervalos' } },
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+
+            // Frequency Polygon
+            if (polygonChart) polygonChart.destroy();
+            const ctxPoly = document.getElementById('polygonChart').getContext('2d');
+            polygonChart = new Chart(ctxPoly, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
                         label: 'Polígono de Frecuencias',
                         data: dataFi,
-                        type: 'line',
                         borderColor: '#f72585',
-                        fill: false,
+                        backgroundColor: 'rgba(247, 37, 133, 0.1)',
+                        fill: true,
                         tension: 0.1
                     }]
                 },
-                options: { responsive: true, maintainAspectRatio: false }
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { title: { display: true, text: 'Intervalos' } },
+                        y: { beginAtZero: true }
+                    }
+                }
             });
 
             // Ogive
@@ -457,12 +618,18 @@
                         fill: true
                     }]
                 },
-                options: { responsive: true, maintainAspectRatio: false }
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { title: { display: true, text: 'Intervalos' } }
+                    }
+                }
             });
 
             // Pareto
             const paretoData = [...freqTable].sort((a, b) => b.fi - a.fi);
-            const pLabels = paretoData.map(r => r.x);
+            const pLabels = paretoData.map(r => r.label);
             const pFi = paretoData.map(r => r.fi);
             const total = pFi.reduce((a, b) => a + b, 0);
             let currentCum = 0;
@@ -493,6 +660,7 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     scales: {
+                        x: { title: { display: true, text: 'Intervalos' } },
                         y: { beginAtZero: true },
                         y1: {
                             position: 'right',
@@ -507,18 +675,22 @@
 
         // Sets logic
         function calculateSets() {
-            const a = document.getElementById('setA').value.split(',').map(x => x.trim()).filter(x => x !== "");
-            const b = document.getElementById('setB').value.split(',').map(x => x.trim()).filter(x => x !== "");
-            const setA = new Set(a);
-            const setB = new Set(b);
+            const aRaw = document.getElementById('setA').value.split(',').map(x => x.trim()).filter(x => x !== "");
+            const bRaw = document.getElementById('setB').value.split(',').map(x => x.trim()).filter(x => x !== "");
+            const setA = new Set(aRaw);
+            const setB = new Set(bRaw);
 
             const union = new Set([...setA, ...setB]);
             const intersection = new Set([...setA].filter(x => setB.has(x)));
-            const difference = new Set([...setA].filter(x => !setB.has(x)));
+            const diffAB = new Set([...setA].filter(x => !setB.has(x)));
+            const diffBA = new Set([...setB].filter(x => !setA.has(x)));
 
+            document.getElementById('set-a-echo').innerText = `{ ${[...setA].join(', ')} }`;
+            document.getElementById('set-b-echo').innerText = `{ ${[...setB].join(', ')} }`;
             document.getElementById('set-union').innerText = `{ ${[...union].join(', ')} }`;
             document.getElementById('set-inter').innerText = `{ ${[...intersection].join(', ')} }`;
-            document.getElementById('set-diff').innerText = `{ ${[...difference].join(', ')} }`;
+            document.getElementById('set-diff-ab').innerText = `{ ${[...diffAB].join(', ')} }`;
+            document.getElementById('set-diff-ba').innerText = `{ ${[...diffBA].join(', ')} }`;
         }
 
         // Probability logic
