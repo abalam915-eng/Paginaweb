@@ -1,0 +1,116 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #ebcd25;
+    color: #111111;
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0);
+    margin-bottom: 1.5rem;
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+.card-header {
+    background-color: #fff9a5;
+    border-bottom: 2px solid #e5ff00;
+    font-weight: 600;
+    border-radius: 12px 12px 0 0 !important;
+}
+
+.btn-primary {
+    background-color: #1d4add;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #5952dfd2;
+}
+
+.text-accent {
+    color: #1d4add;
+    font-weight: 600;
+}
+
+.chart-container {
+    position: relative;
+    height: 300px;
+    width: 100%;
+}
+
+.set-box {
+    padding: 10px;
+    border: 1px dashed oklab(58.528999999999996% 0.17745 0.08548);
+    border-radius: 8px;
+    background: #ffffff;
+}
+
+pre {
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+/* Formula Styles */
+.formula-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.fraction {
+    display: inline-flex;
+    flex-direction: column;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.num {
+    border-bottom: 2px solid #333;
+    padding: 0 5px;
+}
+
+.den {
+    padding: 2px 5px 0 5px;
+}
+
+/* Concept Cards */
+.concept-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    height: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-left: 5px solid #1d4add;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.concept-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.concept-title {
+    color: #1d4add;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.concept-text {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.5;
+}

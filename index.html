@@ -9,74 +9,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8f9fa;
-            color: #383838;
-        }
-
-        .card {
-            border: none;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            margin-bottom: 1.5rem;
-            transition: transform 0.2s;
-        }
-
-        .card:hover {
-            transform: translateY(-2px);
-        }
-
-        .card-header {
-            background-color: #f0ebeb;
-            border-bottom: 2px solid #f1f1f1;
-            font-weight: 600;
-            border-radius: 12px 12px 0 0 !important;
-        }
-
-        .btn-primary {
-            background-color: #4361ee;
-            border: none;
-        }
-
-        .btn-primary:hover {
-            background-color: #3f37c9;
-        }
-
-        .text-accent {
-            color: #4361ee;
-            font-weight: 600;
-        }
-
-        .chart-container {
-            position: relative;
-            height: 300px;
-            width: 100%;
-        }
-
-        .set-box {
-            padding: 10px;
-            border: 1px dashed #ccc;
-            border-radius: 8px;
-            background: #fff;
-        }
-
-        pre {
-            background: #e9ecef;
-            padding: 15px;
-            border-radius: 8px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="#">
-                <img src="dog mexicano.png" alt="Logo" width="40" height="40" class="me-2 rounded-circle">
-                PROBABILIDAD Y ESTADISTICA - WEBAPP
+        <div class="container justify-content-center text-center">
+            <a class="navbar-brand d-flex flex-column align-items-center mx-0" href="#">
+                <span class="fs-4 fw-bold mb-2">PROBABILIDAD Y ESTADISTICA - WEBAPP</span>
+                <img src="dog mexicano.png" alt="Logo" width="60" height="60" class="rounded-circle shadow">
             </a>
         </div>
     </nav>
@@ -173,7 +115,7 @@
                                 <thead class="table-light">
                                     <tr>
                                         <th>Intervalo</th>
-                                        <th>Marca Clase (x)</th>
+                                        <th>Punto Medio (x)</th>
                                         <th>fi</th>
                                         <th>fr (%)</th>
                                         <th>Fi</th>
@@ -286,29 +228,29 @@
                     <div class="card-header">Cálculo de Probabilidad</div>
                     <div class="card-body">
                         <h6>Probabilidad Simple</h6>
+
+                        <div class="mb-3 p-2 bg-light border-start border-primary" style="font-size: 0.85rem;">
+                            <p class="mb-1 text-muted"><strong>En 150 llamadas, 18 se cortan</strong></p>
+                            <p class="mb-1"><strong>Experimento:</strong> Analisis de llamadas</p>
+                            <p class="mb-1"><strong>Espacio muestral:</strong>
+                                s={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20, ...., ....,150}</p>
+                            <p class="mb-0"><strong>Evento:</strong> A={18 se cortan}</p>
+                        </div>
+
                         <div class="row mb-3">
                             <div class="col">
-                                <input type="number" id="probFav" class="form-control" placeholder="Favorables">
+                                <label class="form-label small">Eventos Favorables (A)</label>
+                                <input type="number" id="probFav" class="form-control" placeholder="18">
                             </div>
                             <div class="col">
-                                <input type="number" id="probTotal" class="form-control" placeholder="Totales">
+                                <label class="form-label small">Espacio Muestral (n)</label>
+                                <input type="number" id="probTotal" class="form-control" placeholder="150">
                             </div>
-                            <div class="col-auto">
+                            <div class="col-auto d-flex align-items-end">
                                 <button class="btn btn-sm btn-dark" onclick="calcSimpleProb()">=</button>
                             </div>
                         </div>
-                        <p>Resultado: <span id="simpleProbRes" class="text-accent">-</span></p>
-                        <hr>
-                        <h6>Regla Multiplicativa (Independientes)</h6>
-                        <div class="row mb-3">
-                            <div class="col"><input type="number" id="pA" class="form-control" step="0.1"
-                                    placeholder="P(A)"></div>
-                            <div class="col"><input type="number" id="pB" class="form-control" step="0.1"
-                                    placeholder="P(B)"></div>
-                            <div class="col-auto"><button class="btn btn-sm btn-dark"
-                                    onclick="calcMultiProb()">=</button></div>
-                        </div>
-                        <p>P(A ∩ B): <span id="multiProbRes" class="text-accent">-</span></p>
+                        <p class="mb-0">Resultado: <span id="simpleProbRes" class="text-accent">-</span></p>
                     </div>
                 </div>
             </div>
@@ -330,31 +272,198 @@
                                 <input type="number" id="combR" class="form-control">
                             </div>
                         </div>
-                        <div class="d-flex gap-2 mb-3">
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            <button class="btn btn-sm btn-dark" onclick="calcFact()">Factorial (n!)</button>
                             <button class="btn btn-sm btn-dark" onclick="calcPerm()">Permutación (nPr)</button>
                             <button class="btn btn-sm btn-dark" onclick="calcComb()">Combinación (nCr)</button>
                             <button class="btn btn-sm btn-outline-dark"
                                 onclick="generateRandomComb()">Aleatorio</button>
                         </div>
-                        <p>Resultado: <span id="combResult" class="text-accent fs-5">-</span></p>
                     </div>
+                    <div class="p-2 border rounded bg-light mb-3">
+                        <small class="text-muted d-block">Fórmula aplicada:</small>
+                        <div id="formulaDisplay" class="fw-bold">-</div>
+                    </div>
+                    <p>Resultado: <span id="combResult" class="text-accent fs-5">-</span></p>
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">Diagrama de Árbol (2 Niveles)</div>
+                <div class="card h-100">
+                    <div class="card-header">Regla Multiplicativa y Diagrama de Árbol</div>
                     <div class="card-body">
-                        <p class="small text-muted mb-2">Representación esquemática de eventos sucesivos (Ej: Moneda x2)
-                        </p>
-                        <div class="row g-2 mb-3">
-                            <div class="col"><input type="text" id="treeEv1" class="form-control"
-                                    placeholder="Evento 1 (A/B)"></div>
-                            <div class="col"><input type="text" id="treeEv2" class="form-control"
-                                    placeholder="Evento 2 (X/Y)"></div>
-                            <div class="col-auto"><button class="btn btn-sm btn-dark"
-                                    onclick="generateTree()">Generar</button></div>
+                        <!-- Multiplicative Rule Theory -->
+                        <div class="p-3 border-start border-4 border-primary bg-light mb-4">
+                            <h6 class="fw-bold mb-2">Regla de la Multiplicación</h6>
+                            <p class="small mb-2">Cuando dos eventos son independientes, la probabilidad conjunta es
+                                igual al producto de sus probabilidades individuales.</p>
+                            <div class="formula-container mb-2">
+                                <span class="fs-5 fw-bold">P(A ∩ B) = P(A) · P(B)</span>
+                            </div>
+                            <div class="small text-muted">
+                                <p class="mb-1">• <strong>A y B:</strong> Eventos independientes.</p>
+                                <p class="mb-1">• <strong>P(A ∩ B):</strong> Probabilidad conjunta del evento A y B.</p>
+                            </div>
                         </div>
-                        <pre id="treeDiagram" class="mb-0 text-monospace small">...</pre>
+
+                        <!-- Tree Diagram Tool -->
+                        <p class="small text-muted mb-2">Representación esquemática de eventos sucesivos:</p>
+                        <div class="row g-2 mb-3">
+                            <div class="col">
+                                <input type="text" id="treeEv1" class="form-control" placeholder="Evento 1 (A/B)">
+                            </div>
+                            <div class="col">
+                                <input type="text" id="treeEv2" class="form-control" placeholder="Evento 2 (X/Y)">
+                            </div>
+                        </div>
+                        <div class="row g-2 mb-3">
+                            <div class="col">
+                                <button class="btn btn-sm btn-dark w-100" onclick="generateTree()">Generar</button>
+                            </div>
+                            <div class="col-auto">
+                                <button class="btn btn-sm btn-outline-dark"
+                                    onclick="generateRandomTreeData()">Aleatorio</button>
+                            </div>
+                        </div>
+                        <pre id="treeDiagram" class="mb-0 text-monospace small"
+                            style="background: #f8f9fa; border: 1px solid #dee2e6; padding: 10px; border-radius: 4px;">...</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Concepts Glossary Section -->
+        <div class="row mt-5">
+            <div class="col-12 text-center mb-4">
+                <div class="d-flex align-items-center justify-content-center gap-3 flex-wrap">
+                    <img src="perro inteligente.png" alt="Perro Sabio" width="80" class="rounded shadow-sm">
+                    <h3 class="fw-bold mb-0">Glosario de Conceptos</h3>
+                    <img src="jackie chan sorprendido.png" alt="Confusión" width="80" class="rounded shadow-sm">
+                </div>
+                <p class="text-muted mt-2">Aprende los fundamentos de la probabilidad y estadística</p>
+            </div>
+
+            <!-- Concept Group: Sampling -->
+            <div class="col-md-4 mb-4">
+                <div class="concept-card">
+                    <div class="concept-title">
+                        <span>📊</span> Población y Muestreo
+                    </div>
+                    <div class="concept-text">
+                        <ul class="list-unstyled mb-0">
+                            <li><strong>Universo:</strong> Todo.</li>
+                            <li><strong>Población:</strong> Parte del todo.</li>
+                            <li><strong>Muestra:</strong> Parte de la población.</li>
+                            <li><strong>Censo:</strong> Análisis de toda la población.</li>
+                            <li><strong>Muestreo:</strong> Modo de selección de la muestra (Aleatorio,
+                                Sistemático, Por
+                                Conveniencia, Estratificado).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Concept Group: Statistics -->
+            <div class="col-md-4 mb-4">
+                <div class="concept-card">
+                    <div class="concept-title">
+                        <span>🔢</span> Estadística Básica
+                    </div>
+                    <div class="concept-text">
+                        <ul class="list-unstyled mb-0">
+                            <li><strong>Mínimo:</strong> Valor más pequeño.</li>
+                            <li><strong>Máximo:</strong> Valor más grande.</li>
+                            <li><strong>Rango:</strong> Diferencia entre max y min.</li>
+                            <li><strong>Media:</strong> Promedio de los datos.</li>
+                            <li><strong>Moda:</strong> Valor que más se repite.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Concept Group: Probability -->
+            <div class="col-md-4 mb-4">
+                <div class="concept-card">
+                    <div class="concept-title">
+                        <span>🎲</span> Probabilidad
+                    </div>
+                    <div class="concept-text">
+                        <ul class="list-unstyled mb-0">
+                            <li><strong>Experimento:</strong> Acción con diferentes resultados (Ej: Lanzar
+                                un dado).
+                            </li>
+                            <li><strong>Espacio muestral:</strong> Conjunto de TODOS los resultados (Ej:
+                                s={1,2,3,4,5,6}).</li>
+                            <li><strong>Evento:</strong> Subconjunto del espacio muestral (Ej: A={2,4,6}).
+                            </li>
+                            <li><strong>Probabilidad:</strong> Mide qué tan probable es un evento (P(A) =
+                                A/s).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Concept Group: Frequency Table -->
+            <div class="col-12 mb-4">
+                <div class="concept-card" style="border-left-color: #f72585;">
+                    <div class="concept-title" style="color: #f72585;">
+                        <span>📋</span> Tabla de Frecuencias
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-unstyled mb-md-0">
+                                <li><strong>Frec. Absoluta (fi):</strong> # de repeticiones de un dato.</li>
+                                <li><strong>Frec. Relativa (fr):</strong> % de repeticiones en base al 100%.
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-unstyled mb-0">
+                                <li><strong>Frec. Acumulada (Fi):</strong> Suma progresiva de la frecuencia
+                                    absoluta.
+                                </li>
+                                <li><strong>Frec. Relativa Acumulada (Fr):</strong> Suma progresiva de la
+                                    frecuencia
+                                    relativa.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Legacy Concepts (kept for reference or moved if redundant) -->
+            <div class="col-md-4 mb-4">
+                <div class="concept-card">
+                    <div class="concept-title">
+                        <span>P</span> Permutación
+                    </div>
+                    <div class="concept-text">
+                        Es un arreglo de todos o parte de un conjunto de objetos donde el <strong>orden
+                            importa</strong>. Por ejemplo, en una carrera, el orden de llegada define quién
+                        es 1º, 2º y
+                        3º.
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="concept-card">
+                    <div class="concept-title">
+                        <span>C</span> Combinación
+                    </div>
+                    <div class="concept-text">
+                        Es una selección de elementos donde el <strong>orden NO importa</strong>. Por
+                        ejemplo, elegir 3
+                        frutas para una ensalada; no importa cuál elijas primero.
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="concept-card">
+                    <div class="concept-title">
+                        <span>!</span> Factorial
+                    </div>
+                    <div class="concept-text">
+                        Es el producto de todos los números enteros positivos desde 1 hasta n. Se representa
+                        como
+                        <strong>n!</strong>. Es fundamental para calcular arreglos y selecciones.
                     </div>
                 </div>
             </div>
@@ -363,400 +472,7 @@
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        let histogramChart, polygonChart, ogiveChart, paretoChart;
-
-        function customRound(val) {
-            return (val - Math.floor(val) > 0.5) ? Math.ceil(val) : Math.floor(val);
-        }
-
-        function generateRandomData() {
-            const rand = Array.from({ length: 20 }, () => Math.floor(Math.random() * 100));
-            document.getElementById('dataInput').value = rand.join(', ');
-            processData();
-        }
-
-        function generateRandomSets() {
-            const genSet = () => Array.from({ length: 5 + Math.floor(Math.random() * 4) }, () => Math.floor(Math.random() * 20)).join(', ');
-            document.getElementById('setA').value = genSet();
-            document.getElementById('setB').value = genSet();
-            calculateSets();
-        }
-
-        function generateRandomComb() {
-            const n = 5 + Math.floor(Math.random() * 11); // 5 to 15
-            const r = 1 + Math.floor(Math.random() * n);
-            document.getElementById('combN').value = n;
-            document.getElementById('combR').value = r;
-        }
-
-        function renderStemLeaf(data) {
-            const stems = {};
-            data.forEach(num => {
-                const s = Math.floor(num / 10);
-                const l = Math.floor(num % 10);
-                if (!stems[s]) stems[s] = [];
-                stems[s].push(l);
-            });
-
-            let output = "Tallo | Hoja\n";
-            output += "------|------\n";
-            const sortedStems = Object.keys(stems).map(Number).sort((a, b) => a - b);
-
-            if (sortedStems.length === 0) {
-                output += "Sin datos";
-            } else {
-                sortedStems.forEach(s => {
-                    const leaves = stems[s].sort((a, b) => a - b).join(" ");
-                    output += `${s.toString().padStart(5, ' ')} | ${leaves}\n`;
-                });
-            }
-            document.getElementById('stemLeaf').innerText = output;
-        }
-
-        function processData() {
-            const input = document.getElementById('dataInput').value;
-            if (!input) return;
-
-            const data = input.split(',')
-                .map(x => parseFloat(x.trim()))
-                .filter(x => !isNaN(x))
-                .sort((a, b) => a - b);
-
-            if (data.length < 1) {
-                alert("Favor de ingresar datos numéricos válidos.");
-                return;
-            }
-
-            renderStats(data);
-            const freq = calculateFrequency(data);
-            renderTable(freq);
-            renderCharts(freq);
-            renderStemLeaf(data);
-        }
-
-        function renderStats(data) {
-            const n = data.length;
-            const sum = data.reduce((a, b) => a + b, 0);
-            const mean = sum / n;
-
-            const min = data[0];
-            const max = data[n - 1];
-            const range = max - min;
-
-            // Square Root method for k with custom rounding
-            const k = customRound(Math.sqrt(n)) || 1;
-            const amplitude = customRound(range / k) || 1;
-
-            let median;
-            if (n % 2 === 0) {
-                median = (data[n / 2 - 1] + data[n / 2]) / 2;
-            } else {
-                median = data[Math.floor(n / 2)];
-            }
-
-            const counts = {};
-            data.forEach(x => counts[x] = (counts[x] || 0) + 1);
-            let maxFreq = 0;
-            let modes = [];
-            for (let key in counts) {
-                if (counts[key] > maxFreq) {
-                    maxFreq = counts[key];
-                    modes = [key];
-                } else if (counts[key] === maxFreq) {
-                    modes.push(key);
-                }
-            }
-            const modeStr = (maxFreq > 1) ? modes.join(', ') : 'Ninguna';
-            document.getElementById('stat-mean').innerText = mean.toFixed(2);
-            document.getElementById('stat-median').innerText = median.toFixed(2);
-            document.getElementById('stat-mode').innerText = modeStr;
-            document.getElementById('stat-n').innerText = n;
-            document.getElementById('stat-k-n').innerText = n;
-            document.getElementById('stat-k').innerText = k;
-            document.getElementById('stat-min').innerText = min;
-            document.getElementById('stat-max').innerText = max;
-            document.getElementById('stat-range').innerText = range;
-            document.getElementById('stat-amp-formula').innerText = `${range} / ${k} = ${customRound(range / k)}`;
-            document.getElementById('stat-amplitude').innerText = amplitude;
-        }
-
-        function calculateFrequency(data) {
-            const n = data.length;
-            const min = data[0];
-            const max = data[n - 1];
-            const range = max - min;
-
-            // Square Root method for k with custom rounding
-            const k = customRound(Math.sqrt(n)) || 1;
-
-            // Strictly automatic amplitude
-            const amplitude = customRound(range / k) || 1;
-
-            const tempIntervals = [];
-            let currentLower = min;
-            let totalFi = 0;
-
-            // First pass: calculate fi and totalFi
-            for (let i = 0; i < k; i++) {
-                const lower = currentLower;
-                const upper = lower + amplitude;
-                const binData = data.filter(v => v >= lower && v <= upper);
-                const fi = binData.length;
-                totalFi += fi;
-
-                tempIntervals.push({ lower, upper, fi });
-                currentLower = upper + 1;
-            }
-
-            // Second pass: calculate fr and accumulated Fi/Fr
-            const intervals = [];
-            let cumulative = 0;
-            tempIntervals.forEach(item => {
-                cumulative += item.fi;
-                const midpoint = (item.lower + item.upper) / 2;
-                intervals.push({
-                    label: `${item.lower}-${item.upper}`,
-                    midpoint: midpoint,
-                    fi: item.fi,
-                    fr: (item.fi * 100) / totalFi,
-                    Fi: cumulative,
-                    Fr: (cumulative * 100) / totalFi
-                });
-            });
-
-            return intervals;
-        }
-
-        function renderTable(freqTable) {
-            const tbody = document.getElementById('frequency-body');
-            tbody.innerHTML = '';
-            freqTable.forEach(row => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${row.label}</td>
-                    <td>${row.midpoint.toFixed(2)}</td>
-                    <td>${row.fi}</td>
-                    <td>${row.fr.toFixed(2)}%</td>
-                    <td>${row.Fi}</td>
-                    <td>${row.Fr.toFixed(2)}%</td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-
-        function renderCharts(freqTable) {
-            const labels = freqTable.map(r => r.label);
-            const dataFi = freqTable.map(r => r.fi);
-            const dataFiCum = freqTable.map(r => r.Fi);
-
-            // Histogram
-            if (histogramChart) histogramChart.destroy();
-            const ctxH = document.getElementById('histogramChart').getContext('2d');
-            histogramChart = new Chart(ctxH, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Frecuencia Absoluta (fi)',
-                        data: dataFi,
-                        backgroundColor: 'rgba(67, 97, 238, 0.5)',
-                        borderColor: '#4361ee',
-                        borderWidth: 1,
-                        barPercentage: 1,
-                        categoryPercentage: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: { title: { display: true, text: 'Intervalos' } },
-                        y: { beginAtZero: true }
-                    }
-                }
-            });
-
-            // Frequency Polygon
-            if (polygonChart) polygonChart.destroy();
-            const ctxPoly = document.getElementById('polygonChart').getContext('2d');
-            polygonChart = new Chart(ctxPoly, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Polígono de Frecuencias',
-                        data: dataFi,
-                        borderColor: '#f72585',
-                        backgroundColor: 'rgba(247, 37, 133, 0.1)',
-                        fill: true,
-                        tension: 0.1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: { title: { display: true, text: 'Intervalos' } },
-                        y: { beginAtZero: true }
-                    }
-                }
-            });
-
-            // Ogive
-            if (ogiveChart) ogiveChart.destroy();
-            const ctxO = document.getElementById('ogiveChart').getContext('2d');
-            ogiveChart = new Chart(ctxO, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Frecuencia Acumulada (Fi)',
-                        data: dataFiCum,
-                        borderColor: '#4cc9f0',
-                        backgroundColor: 'rgba(76, 201, 240, 0.2)',
-                        fill: true
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: { title: { display: true, text: 'Intervalos' } }
-                    }
-                }
-            });
-
-            // Pareto
-            const paretoData = [...freqTable].sort((a, b) => b.fi - a.fi);
-            const pLabels = paretoData.map(r => r.label);
-            const pFi = paretoData.map(r => r.fi);
-            const total = pFi.reduce((a, b) => a + b, 0);
-            let currentCum = 0;
-            const pCumPerc = pFi.map(v => {
-                currentCum += v;
-                return (currentCum / total) * 100;
-            });
-
-            if (paretoChart) paretoChart.destroy();
-            const ctxP = document.getElementById('paretoChart').getContext('2d');
-            paretoChart = new Chart(ctxP, {
-                data: {
-                    labels: pLabels,
-                    datasets: [{
-                        label: 'Frecuencia',
-                        type: 'bar',
-                        data: pFi,
-                        backgroundColor: '#4361ee'
-                    }, {
-                        label: '% Acumulado',
-                        type: 'line',
-                        data: pCumPerc,
-                        borderColor: '#f72585',
-                        yAxisID: 'y1'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: { title: { display: true, text: 'Intervalos' } },
-                        y: { beginAtZero: true },
-                        y1: {
-                            position: 'right',
-                            max: 100,
-                            beginAtZero: true,
-                            grid: { drawOnChartArea: false }
-                        }
-                    }
-                }
-            });
-        }
-
-        // Sets logic
-        function calculateSets() {
-            const aRaw = document.getElementById('setA').value.split(',').map(x => x.trim()).filter(x => x !== "");
-            const bRaw = document.getElementById('setB').value.split(',').map(x => x.trim()).filter(x => x !== "");
-            const setA = new Set(aRaw);
-            const setB = new Set(bRaw);
-
-            const union = new Set([...setA, ...setB]);
-            const intersection = new Set([...setA].filter(x => setB.has(x)));
-            const diffAB = new Set([...setA].filter(x => !setB.has(x)));
-            const diffBA = new Set([...setB].filter(x => !setA.has(x)));
-
-            document.getElementById('set-a-echo').innerText = `{ ${[...setA].join(', ')} }`;
-            document.getElementById('set-b-echo').innerText = `{ ${[...setB].join(', ')} }`;
-            document.getElementById('set-union').innerText = `{ ${[...union].join(', ')} }`;
-            document.getElementById('set-inter').innerText = `{ ${[...intersection].join(', ')} }`;
-            document.getElementById('set-diff-ab').innerText = `{ ${[...diffAB].join(', ')} }`;
-            document.getElementById('set-diff-ba').innerText = `{ ${[...diffBA].join(', ')} }`;
-        }
-
-        // Probability logic
-        function calcSimpleProb() {
-            const fav = parseFloat(document.getElementById('probFav').value);
-            const tot = parseFloat(document.getElementById('probTotal').value);
-            if (tot === 0) return;
-            document.getElementById('simpleProbRes').innerText = (fav / tot).toFixed(4);
-        }
-
-        function calcMultiProb() {
-            const pa = parseFloat(document.getElementById('pA').value);
-            const pb = parseFloat(document.getElementById('pB').value);
-            document.getElementById('multiProbRes').innerText = (pa * pb).toFixed(4);
-        }
-
-        // Combinatorics logic
-        function factorial(n) {
-            if (n < 0) return 0;
-            if (n === 0) return 1;
-            let res = 1;
-            for (let i = 2; i <= n; i++) res *= i;
-            return res;
-        }
-
-        function calcPerm() {
-            const n = parseInt(document.getElementById('combN').value);
-            const r = parseInt(document.getElementById('combR').value);
-            if (isNaN(n) || isNaN(r) || n < r) return;
-            const res = factorial(n) / factorial(n - r);
-            document.getElementById('combResult').innerText = res.toLocaleString();
-        }
-
-        function calcComb() {
-            const n = parseInt(document.getElementById('combN').value);
-            const r = parseInt(document.getElementById('combR').value);
-            if (isNaN(n) || isNaN(r) || n < r) return;
-            const res = factorial(n) / (factorial(r) * factorial(n - r));
-            document.getElementById('combResult').innerText = res.toLocaleString();
-        }
-
-        // Tree Diagram
-        function generateTree() {
-            const ev1 = document.getElementById('treeEv1').value || "A/B";
-            const ev2 = document.getElementById('treeEv2').value || "X/Y";
-            const parts1 = ev1.split('/').map(x => x.trim());
-            const parts2 = ev2.split('/').map(x => x.trim());
-
-            let diagram = "Inicio\n";
-            parts1.forEach(p1 => {
-                diagram += `├── ${p1}\n`;
-                parts2.forEach((p2, idx) => {
-                    const prefix = (idx === parts2.length - 1) ? "│   └── " : "│   ├── ";
-                    diagram += `${prefix}${p2}\n`;
-                });
-            });
-            document.getElementById('treeDiagram').innerText = diagram;
-        }
-
-        // Init with some data
-        window.onload = () => {
-            document.getElementById('dataInput').value = "10, 12, 12, 15, 18, 20, 22, 22, 22, 25, 30, 32, 35, 35, 38, 40, 42, 45, 48, 50";
-            processData();
-        };
-    </script>
-
+    <script src="script.js"></script>
 </body>
 
 </html>
