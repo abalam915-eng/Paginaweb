@@ -1,9 +1,11 @@
+/* Estilos Globales y Base */
 body {
     font-family: 'Inter', sans-serif;
     background-color: #ebcd25;
     color: #111111;
 }
 
+/* Componentes de Tarjeta (Cards) */
 .card {
     border: none;
     border-radius: 12px;
@@ -23,6 +25,7 @@ body {
     border-radius: 12px 12px 0 0 !important;
 }
 
+/* Botones y Acentos */
 .btn-primary {
     background-color: #1d4add;
     border: none;
@@ -37,6 +40,7 @@ body {
     font-weight: 600;
 }
 
+/* Contenedores de Gráficos y Otros */
 .chart-container {
     position: relative;
     height: 300px;
@@ -56,7 +60,7 @@ pre {
     border-radius: 8px;
 }
 
-/* Formula Styles */
+/* Estilos para Fórmulas Matemáticas */
 .formula-container {
     display: flex;
     align-items: center;
@@ -84,7 +88,7 @@ pre {
     padding: 2px 5px 0 5px;
 }
 
-/* Concept Cards */
+/* Tarjetas Informativas del Glosario */
 .concept-card {
     background: #ffffff;
     border-radius: 12px;

@@ -1,15 +1,28 @@
+// Variables globales para las instancias de los gráficos
 let histogramChart, polygonChart, ogiveChart, paretoChart;
 
+/**
+ * Función de redondeo personalizada:
+ * Redondea al alza si el decimal es mayor a 0.5, de lo contrario trunca.
+ * @param {number} val - Valor a redondear.
+ * @returns {number} Valor redondeado.
+ */
 function customRound(val) {
     return (val - Math.floor(val) > 0.5) ? Math.ceil(val) : Math.floor(val);
 }
 
+/**
+ * Genera 20 números aleatorios entre 0 y 99 y los procesa.
+ */
 function generateRandomData() {
     const rand = Array.from({ length: 20 }, () => Math.floor(Math.random() * 100));
     document.getElementById('dataInput').value = rand.join(', ');
     processData();
 }
 
+/**
+ * Genera conjuntos A y B aleatorios para operaciones de conjuntos.
+ */
 function generateRandomSets() {
     const genSet = () => Array.from({ length: 5 + Math.floor(Math.random() * 4) }, () => Math.floor(Math.random() * 20)).join(', ');
     document.getElementById('setA').value = genSet();
@@ -17,18 +30,25 @@ function generateRandomSets() {
     calculateSets();
 }
 
+/**
+ * Genera valores n y r aleatorios para combinatoria.
+ */
 function generateRandomComb() {
-    const n = 5 + Math.floor(Math.random() * 11); // 5 to 15
+    const n = 5 + Math.floor(Math.random() * 11); // Entre 5 y 15
     const r = 1 + Math.floor(Math.random() * n);
     document.getElementById('combN').value = n;
     document.getElementById('combR').value = r;
 }
 
+/**
+ * Genera y muestra un diagrama de tallo y hoja basado en los datos.
+ * @param {Array<number>} data - Conjunto de datos ordenados.
+ */
 function renderStemLeaf(data) {
     const stems = {};
     data.forEach(num => {
-        const s = Math.floor(num / 10);
-        const l = Math.floor(num % 10);
+        const s = Math.floor(num / 10); // El tallo es la decena
+        const l = Math.floor(num % 10); // La hoja es la unidad
         if (!stems[s]) stems[s] = [];
         stems[s].push(l);
     });
@@ -48,10 +68,14 @@ function renderStemLeaf(data) {
     document.getElementById('stemLeaf').innerText = output;
 }
 
+/**
+ * Punto de entrada principal para procesar los datos ingresados por el usuario.
+ */
 function processData() {
     const input = document.getElementById('dataInput').value;
     if (!input) return;
 
+    // Limpieza y ordenamiento de datos
     const data = input.split(',')
         .map(x => parseFloat(x.trim()))
         .filter(x => !isNaN(x))
@@ -69,6 +93,10 @@ function processData() {
     renderStemLeaf(data);
 }
 
+/**
+ * Calcula y muestra estadísticas descriptivas básicas.
+ * @param {Array<number>} data - Conjunto de datos.
+ */
 function renderStats(data) {
     const n = data.length;
     const sum = data.reduce((a, b) => a + b, 0);
@@ -78,10 +106,11 @@ function renderStats(data) {
     const max = data[n - 1];
     const range = max - min;
 
-    // Square Root method for k with custom rounding
+    // Método de Raíz Cuadrada para k con redondeo personalizado
     const k = customRound(Math.sqrt(n)) || 1;
     const amplitude = customRound(range / k) || 1;
 
+    // Cálculo de la Mediana
     let median;
     if (n % 2 === 0) {
         median = (data[n / 2 - 1] + data[n / 2]) / 2;
@@ -89,6 +118,7 @@ function renderStats(data) {
         median = data[Math.floor(n / 2)];
     }
 
+    // Cálculo de la Moda (puede ser bimodal o multimodal)
     const counts = {};
     data.forEach(x => counts[x] = (counts[x] || 0) + 1);
     let maxFreq = 0;
@@ -102,6 +132,8 @@ function renderStats(data) {
         }
     }
     const modeStr = (maxFreq > 1) ? modes.join(', ') : 'Ninguna';
+
+    // Actualización de la interfaz
     document.getElementById('stat-mean').innerText = mean.toFixed(2);
     document.getElementById('stat-median').innerText = median.toFixed(2);
     document.getElementById('stat-mode').innerText = modeStr;
@@ -115,23 +147,28 @@ function renderStats(data) {
     document.getElementById('stat-amplitude').innerText = amplitude;
 }
 
+/**
+ * Genera los intervalos y calcula las frecuencias fi, fr, Fi, Fr.
+ * @param {Array<number>} data - Conjunto de datos ordenados.
+ * @returns {Array<Object>} Tabla de frecuencias.
+ */
 function calculateFrequency(data) {
     const n = data.length;
     const min = data[0];
     const max = data[n - 1];
     const range = max - min;
 
-    // Square Root method for k with custom rounding
+    // Método de Raíz Cuadrada para k con redondeo personalizado
     const k = customRound(Math.sqrt(n)) || 1;
 
-    // Strictly automatic amplitude
+    // Amplitud calculada automáticamente
     const amplitude = customRound(range / k) || 1;
 
     const tempIntervals = [];
     let currentLower = min;
     let totalFi = 0;
 
-    // First pass: calculate fi and totalFi
+    // Primera pasada: calcular fi y totalFi real manejando límites
     for (let i = 0; i < k; i++) {
         const lower = currentLower;
         const upper = lower + amplitude;
@@ -140,10 +177,10 @@ function calculateFrequency(data) {
         totalFi += fi;
 
         tempIntervals.push({ lower, upper, fi });
-        currentLower = upper + 1;
+        currentLower = upper + 1; // El siguiente intervalo empieza después del límite actual
     }
 
-    // Second pass: calculate fr and accumulated Fi/Fr
+    // Segunda pasada: calcular fr y Fi/Fr acumulados
     const intervals = [];
     let cumulative = 0;
     tempIntervals.forEach(item => {
@@ -162,6 +199,10 @@ function calculateFrequency(data) {
     return intervals;
 }
 
+/**
+ * Renderiza la tabla de frecuencias en el HTML.
+ * @param {Array<Object>} freqTable - Datos de la tabla de frecuencias.
+ */
 function renderTable(freqTable) {
     const tbody = document.getElementById('frequency-body');
     tbody.innerHTML = '';
@@ -179,12 +220,16 @@ function renderTable(freqTable) {
     });
 }
 
+/**
+ * Crea y actualiza los gráficos (Histograma, Polígono, Ojiva y Pareto) usando Chart.js.
+ * @param {Array<Object>} freqTable - Datos para los gráficos.
+ */
 function renderCharts(freqTable) {
     const labels = freqTable.map(r => r.label);
     const dataFi = freqTable.map(r => r.fi);
     const dataFiCum = freqTable.map(r => r.Fi);
 
-    // Histogram
+    // Configuración del Histograma
     if (histogramChart) histogramChart.destroy();
     const ctxH = document.getElementById('histogramChart').getContext('2d');
     histogramChart = new Chart(ctxH, {
@@ -211,7 +256,7 @@ function renderCharts(freqTable) {
         }
     });
 
-    // Frequency Polygon
+    // Configuración del Polígono de Frecuencias
     if (polygonChart) polygonChart.destroy();
     const ctxPoly = document.getElementById('polygonChart').getContext('2d');
     polygonChart = new Chart(ctxPoly, {
@@ -237,7 +282,7 @@ function renderCharts(freqTable) {
         }
     });
 
-    // Ogive
+    // Configuración de la Ojiva
     if (ogiveChart) ogiveChart.destroy();
     const ctxO = document.getElementById('ogiveChart').getContext('2d');
     ogiveChart = new Chart(ctxO, {
@@ -261,7 +306,7 @@ function renderCharts(freqTable) {
         }
     });
 
-    // Pareto
+    // Configuración del Diagrama de Pareto
     const paretoData = [...freqTable].sort((a, b) => b.fi - a.fi);
     const pLabels = paretoData.map(r => r.label);
     const pFi = paretoData.map(r => r.fi);
@@ -313,17 +358,25 @@ function renderCharts(freqTable) {
 }
 
 // Sets logic
+/**
+ * Realiza operaciones de conjuntos (unión, intersección, diferencia).
+ */
 function calculateSets() {
     const aRaw = document.getElementById('setA').value.split(',').map(x => x.trim()).filter(x => x !== "");
     const bRaw = document.getElementById('setB').value.split(',').map(x => x.trim()).filter(x => x !== "");
     const setA = new Set(aRaw);
     const setB = new Set(bRaw);
 
+    // Unión A ∪ B
     const union = new Set([...setA, ...setB]);
+    // Intersección A ∩ B
     const intersection = new Set([...setA].filter(x => setB.has(x)));
+    // Diferencia A - B
     const diffAB = new Set([...setA].filter(x => !setB.has(x)));
+    // Diferencia B - A
     const diffBA = new Set([...setB].filter(x => !setA.has(x)));
 
+    // Actualización de la interfaz
     document.getElementById('set-a-echo').innerText = `{ ${[...setA].join(', ')} }`;
     document.getElementById('set-b-echo').innerText = `{ ${[...setB].join(', ')} }`;
     document.getElementById('set-union').innerText = `{ ${[...union].join(', ')} }`;
@@ -333,16 +386,25 @@ function calculateSets() {
 }
 
 // Probability logic
+/**
+ * Calcula la probabilidad simple P(A) = Favorables / Totales.
+ */
 function calcSimpleProb() {
     const fav = parseFloat(document.getElementById('probFav').value);
     const tot = parseFloat(document.getElementById('probTotal').value);
     if (tot === 0 || isNaN(fav) || isNaN(tot)) return;
+
     const prob = fav / tot;
     const perc = (prob * 100).toFixed(2);
     document.getElementById('simpleProbRes').innerText = `P(A) = ${fav}/${tot} = ${prob.toFixed(4)} = ${perc}%`;
 }
 
 // Combinatorics logic
+/**
+ * Calcula el factorial de un número n.
+ * @param {number} n - Número entero no negativo.
+ * @returns {number} Factorial de n.
+ */
 function factorial(n) {
     if (n < 0) return 0;
     if (n === 0) return 1;
@@ -351,6 +413,9 @@ function factorial(n) {
     return res;
 }
 
+/**
+ * Calcula y muestra el factorial de n.
+ */
 function calcFact() {
     const n = parseInt(document.getElementById('combN').value);
     if (isNaN(n) || n < 0) return;
@@ -366,10 +431,14 @@ function calcFact() {
     document.getElementById('combResult').innerText = res.toLocaleString();
 }
 
+/**
+ * Calcula y muestra permutaciones nPr.
+ */
 function calcPerm() {
     const n = parseInt(document.getElementById('combN').value);
     const r = parseInt(document.getElementById('combR').value);
     if (isNaN(n) || isNaN(r) || n < r) return;
+
     const res = factorial(n) / factorial(n - r);
     const diff = n - r;
 
@@ -394,10 +463,14 @@ function calcPerm() {
     document.getElementById('combResult').innerText = res.toLocaleString();
 }
 
+/**
+ * Calcula y muestra combinaciones nCr.
+ */
 function calcComb() {
     const n = parseInt(document.getElementById('combN').value);
     const r = parseInt(document.getElementById('combR').value);
     if (isNaN(n) || isNaN(r) || n < r) return;
+
     const res = factorial(n) / (factorial(r) * factorial(n - r));
     const diff = n - r;
 
@@ -423,6 +496,9 @@ function calcComb() {
 }
 
 // Tree Diagram
+/**
+ * Genera ejemplos aleatorios para el diagrama de árbol.
+ */
 function generateRandomTreeData() {
     const examples = [
         ["Sol/Águila", "Sol/Águila"],
@@ -437,6 +513,9 @@ function generateRandomTreeData() {
     generateTree();
 }
 
+/**
+ * Genera un diagrama de árbol textual basado en dos eventos.
+ */
 function generateTree() {
     const ev1 = document.getElementById('treeEv1').value || "A/B";
     const ev2 = document.getElementById('treeEv2').value || "X/Y";
@@ -455,6 +534,9 @@ function generateTree() {
 }
 
 // Init with some data
+/**
+ * Inicialización al cargar la ventana: Genera datos de ejemplo predeterminados.
+ */
 window.onload = () => {
     document.getElementById('dataInput').value = "10, 12, 12, 15, 18, 20, 22, 22, 22, 25, 30, 32, 35, 35, 38, 40, 42, 45, 48, 50";
     processData();

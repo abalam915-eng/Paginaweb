@@ -5,15 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PROBABILIDAD Y ESTADISTICA - WEBAPP</title>
-    <!-- Bootstrap 5 CDN -->
+    <!-- Bootstrap 5 CDN para estilos base y componentes -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
+    <!-- Google Fonts: Inter para una tipografía moderna -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Estilos personalizados -->
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+    <!-- Barra de Navegación -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container justify-content-center text-center">
             <a class="navbar-brand d-flex flex-column align-items-center mx-0" href="#">
@@ -25,8 +27,7 @@
 
     <div class="container my-5">
 
-
-        <!-- Data Input Section -->
+        <!-- Sección de Entrada de Datos -->
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -48,9 +49,9 @@
             </div>
         </div>
 
-        <!-- Stats & Frequency Table -->
+        <!-- Estadísticas y Tabla de Frecuencias -->
         <div class="row">
-            <!-- Descriptive Stats -->
+            <!-- Estadísticas Descriptivas -->
             <div class="col-md-4">
                 <!-- Medidas de Tendencia Central -->
                 <div class="card mb-3">
@@ -67,7 +68,7 @@
                     </div>
                 </div>
 
-                <!-- Parametros -->
+                <!-- Parámetros del Conjunto de Datos -->
                 <div class="card mb-3">
                     <div class="card-header">Parámetros</div>
                     <div class="card-body">
@@ -84,7 +85,7 @@
                     </div>
                 </div>
 
-                <!-- Amplitud de Clase -->
+                <!-- Cálculo de Amplitud de Clase -->
                 <div class="card">
                     <div class="card-header">Amplitud de la Clase</div>
                     <div class="card-body text-center">
@@ -105,7 +106,7 @@
                 </div>
             </div>
 
-            <!-- Frequency Table -->
+            <!-- Tabla de Frecuencias Agrupadas -->
             <div class="col-md-8">
                 <div class="card h-100">
                     <div class="card-header">Tabla de Frecuencias</div>
@@ -135,8 +136,9 @@
             </div>
         </div>
 
-        <!-- Charts Section -->
+        <!-- Sección de Gráficos Estadísticos -->
         <div class="row mt-4">
+            <!-- Histograma -->
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">Histograma</div>
@@ -147,6 +149,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Polígono de Frecuencias -->
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">Polígono de Frecuencias</div>
@@ -157,6 +160,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Ojiva -->
             <div class="col-md-6 mt-4">
                 <div class="card">
                     <div class="card-header">Ojiva (Frecuencia Acumulada)</div>
@@ -167,6 +171,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Diagrama de Tallo y Hoja -->
             <div class="col-md-6 mt-4">
                 <div class="card h-100">
                     <div class="card-header">Diagrama de Tallo y Hoja</div>
@@ -175,6 +180,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Diagrama de Pareto -->
             <div class="col-12 mt-4">
                 <div class="card">
                     <div class="card-header">Diagrama de Pareto</div>
@@ -187,9 +193,9 @@
             </div>
         </div>
 
-        <!-- Probability & Combinatorics Section -->
+        <!-- Sección de Probabilidad y Conjuntos -->
         <div class="row mt-4">
-            <!-- Sets -->
+            <!-- Operaciones con Conjuntos -->
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">Operaciones con Conjuntos</div>
@@ -222,13 +228,14 @@
                 </div>
             </div>
 
-            <!-- Probabilities -->
+            <!-- Cálculo de Probabilidad Simple -->
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">Cálculo de Probabilidad</div>
                     <div class="card-body">
                         <h6>Probabilidad Simple</h6>
 
+                        <!-- Ejemplo Teórico -->
                         <div class="mb-3 p-2 bg-light border-start border-primary" style="font-size: 0.85rem;">
                             <p class="mb-1 text-muted"><strong>En 150 llamadas, 18 se cortan</strong></p>
                             <p class="mb-1"><strong>Experimento:</strong> Analisis de llamadas</p>
@@ -256,8 +263,9 @@
             </div>
         </div>
 
-        <!-- Combinatorics & Tree -->
+        <!-- Técnicas de Conteo y Diagrama de Árbol -->
         <div class="row mt-4">
+            <!-- Permutaciones y Combinaciones -->
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">Permutaciones y Combinaciones</div>
@@ -287,11 +295,12 @@
                     <p>Resultado: <span id="combResult" class="text-accent fs-5">-</span></p>
                 </div>
             </div>
+            <!-- Regla Multiplicativa y Diagrama de Árbol -->
             <div class="col-md-6">
                 <div class="card h-100">
                     <div class="card-header">Regla Multiplicativa y Diagrama de Árbol</div>
                     <div class="card-body">
-                        <!-- Multiplicative Rule Theory -->
+                        <!-- Teoría de la Regla Multiplicativa -->
                         <div class="p-3 border-start border-4 border-primary bg-light mb-4">
                             <h6 class="fw-bold mb-2">Regla de la Multiplicación</h6>
                             <p class="small mb-2">Cuando dos eventos son independientes, la probabilidad conjunta es
@@ -305,7 +314,7 @@
                             </div>
                         </div>
 
-                        <!-- Tree Diagram Tool -->
+                        <!-- Herramienta de Diagrama de Árbol -->
                         <p class="small text-muted mb-2">Representación esquemática de eventos sucesivos:</p>
                         <div class="row g-2 mb-3">
                             <div class="col">
@@ -330,7 +339,8 @@
                 </div>
             </div>
         </div>
-        <!-- Concepts Glossary Section -->
+
+        <!-- Sección de Glosario de Conceptos -->
         <div class="row mt-5">
             <div class="col-12 text-center mb-4">
                 <div class="d-flex align-items-center justify-content-center gap-3 flex-wrap">
@@ -341,7 +351,7 @@
                 <p class="text-muted mt-2">Aprende los fundamentos de la probabilidad y estadística</p>
             </div>
 
-            <!-- Concept Group: Sampling -->
+            <!-- Grupo de Conceptos: Muestreo -->
             <div class="col-md-4 mb-4">
                 <div class="concept-card">
                     <div class="concept-title">
@@ -361,7 +371,7 @@
                 </div>
             </div>
 
-            <!-- Concept Group: Statistics -->
+            <!-- Grupo de Conceptos: Estadística Descriptiva -->
             <div class="col-md-4 mb-4">
                 <div class="concept-card">
                     <div class="concept-title">
@@ -374,12 +384,13 @@
                             <li><strong>Rango:</strong> Diferencia entre max y min.</li>
                             <li><strong>Media:</strong> Promedio de los datos.</li>
                             <li><strong>Moda:</strong> Valor que más se repite.</li>
+                            <li><strong>Mediana:</strong> Valor central del conjunto ordenado.</li>
                         </ul>
                     </div>
                 </div>
             </div>
 
-            <!-- Concept Group: Probability -->
+            <!-- Grupo de Conceptos: Probabilidad -->
             <div class="col-md-4 mb-4">
                 <div class="concept-card">
                     <div class="concept-title">
@@ -401,7 +412,7 @@
                 </div>
             </div>
 
-            <!-- Concept Group: Frequency Table -->
+            <!-- Grupo de Conceptos: Tabla de Frecuencias -->
             <div class="col-12 mb-4">
                 <div class="concept-card" style="border-left-color: #f72585;">
                     <div class="concept-title" style="color: #f72585;">
@@ -429,7 +440,7 @@
                 </div>
             </div>
 
-            <!-- Legacy Concepts (kept for reference or moved if redundant) -->
+            <!-- Conceptos Adicionales -->
             <div class="col-md-4 mb-4">
                 <div class="concept-card">
                     <div class="concept-title">
@@ -470,7 +481,8 @@
         </div>
     </div>
 
-    <!-- Scripts -->
+    <!-- Scripts de Terceros y Lógica Local -->
+    <!-- Chart.js para la generación de gráficos interactivos -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
 </body>
