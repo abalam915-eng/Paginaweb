@@ -50,10 +50,10 @@
         </div>
 
         <!-- Estadísticas y Tabla de Frecuencias -->
-        <div class="row">
-            <!-- Estadísticas Descriptivas -->
+        <!-- Estadísticas Descriptivas -->
+        <div class="row mt-4">
+            <!-- Medidas de Tendencia Central -->
             <div class="col-md-4">
-                <!-- Medidas de Tendencia Central -->
                 <div class="card mb-3">
                     <div class="card-header">Medidas de Tendencia Central</div>
                     <div class="card-body">
@@ -67,8 +67,10 @@
                         </ul>
                     </div>
                 </div>
+            </div>
 
-                <!-- Parámetros del Conjunto de Datos -->
+            <!-- Parámetros del Conjunto de Datos -->
+            <div class="col-md-4">
                 <div class="card mb-3">
                     <div class="card-header">Parámetros</div>
                     <div class="card-body">
@@ -84,8 +86,10 @@
                         </ul>
                     </div>
                 </div>
+            </div>
 
-                <!-- Cálculo de Amplitud de Clase -->
+            <!-- Cálculo de Amplitud de Clase -->
+            <div class="col-md-4">
                 <div class="card">
                     <div class="card-header">Amplitud de la Clase</div>
                     <div class="card-body text-center">
@@ -105,14 +109,16 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Tabla de Frecuencias Agrupadas -->
-            <div class="col-md-8">
+        <!-- Tabla de Frecuencias Agrupadas -->
+        <div class="row mt-4">
+            <div class="col-12">
                 <div class="card h-100">
                     <div class="card-header">Tabla de Frecuencias</div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
-                            <table class="table table-hover mb-0">
+                            <table class="table table-hover mb-0 text-center">
                                 <thead class="table-light">
                                     <tr>
                                         <th>Intervalo</th>
@@ -125,7 +131,7 @@
                                 </thead>
                                 <tbody id="frequency-body">
                                     <tr>
-                                        <td colspan="5" class="text-center py-4">Ingresa datos para generar la tabla
+                                        <td colspan="6" class="text-center py-4">Ingresa datos para generar la tabla
                                         </td>
                                     </tr>
                                 </tbody>
@@ -263,12 +269,12 @@
             </div>
         </div>
 
-        <!-- Técnicas de Conteo y Diagrama de Árbol -->
+        <!-- Técnicas de Conteo -->
         <div class="row mt-4">
             <!-- Permutaciones y Combinaciones -->
-            <div class="col-md-6">
+            <div class="col-12">
                 <div class="card">
-                    <div class="card-header">Permutaciones y Combinaciones</div>
+                    <div class="card-header">Factorial, Permutación y Combinación</div>
                     <div class="card-body">
                         <div class="row mb-3">
                             <div class="col">
@@ -287,16 +293,20 @@
                             <button class="btn btn-sm btn-outline-dark"
                                 onclick="generateRandomComb()">Aleatorio</button>
                         </div>
+                        <div class="p-2 border rounded bg-light mb-3">
+                            <small class="text-muted d-block">Fórmula aplicada:</small>
+                            <div id="formulaDisplay" class="fw-bold">-</div>
+                        </div>
+                        <p>Resultado: <span id="combResult" class="text-accent fs-5">-</span></p>
                     </div>
-                    <div class="p-2 border rounded bg-light mb-3">
-                        <small class="text-muted d-block">Fórmula aplicada:</small>
-                        <div id="formulaDisplay" class="fw-bold">-</div>
-                    </div>
-                    <p>Resultado: <span id="combResult" class="text-accent fs-5">-</span></p>
                 </div>
             </div>
+        </div>
+
+        <!-- Diagrama de Árbol -->
+        <div class="row mt-4">
             <!-- Regla Multiplicativa y Diagrama de Árbol -->
-            <div class="col-md-6">
+            <div class="col-12">
                 <div class="card h-100">
                     <div class="card-header">Regla Multiplicativa y Diagrama de Árbol</div>
                     <div class="card-body">
@@ -305,23 +315,43 @@
                             <h6 class="fw-bold mb-2">Regla de la Multiplicación</h6>
                             <p class="small mb-2">Cuando dos eventos son independientes, la probabilidad conjunta es
                                 igual al producto de sus probabilidades individuales.</p>
-                            <div class="formula-container mb-2">
-                                <span class="fs-5 fw-bold">P(A ∩ B) = P(A) · P(B)</span>
-                            </div>
-                            <div class="small text-muted">
-                                <p class="mb-1">• <strong>A y B:</strong> Eventos independientes.</p>
-                                <p class="mb-1">• <strong>P(A ∩ B):</strong> Probabilidad conjunta del evento A y B.</p>
-                            </div>
+                            <p class="small mb-0">En otras palabras son todas las combinaciones posibles de acuerdo a
+                                las opciones disponibles que tenemos</p>
                         </div>
 
                         <!-- Herramienta de Diagrama de Árbol -->
-                        <p class="small text-muted mb-2">Representación esquemática de eventos sucesivos:</p>
-                        <div class="row g-2 mb-3">
-                            <div class="col">
-                                <input type="text" id="treeEv1" class="form-control" placeholder="Evento 1 (A/B)">
+                        <p class="small text-muted mb-2">Agrega minimo 2 opciones, luego agrega minimo un dato para cada
+                            uno (máx. 25) separandolos por "/" cada una</p>
+                        <div class="mb-3">
+                            <div class="row g-2 mb-2">
+                                <div class="col-4">
+                                    <input type="text" id="treeName1" class="form-control form-control-sm"
+                                        placeholder="Opcion 1">
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" id="treeEv1" class="form-control form-control-sm"
+                                        placeholder="Datos 1 (máx. 25, ej: A/B/C)">
+                                </div>
                             </div>
-                            <div class="col">
-                                <input type="text" id="treeEv2" class="form-control" placeholder="Evento 2 (X/Y)">
+                            <div class="row g-2 mb-2">
+                                <div class="col-4">
+                                    <input type="text" id="treeName2" class="form-control form-control-sm"
+                                        placeholder="Opcion 2">
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" id="treeEv2" class="form-control form-control-sm"
+                                        placeholder="Datos 2 (máx. 25, ej: X/Y/Z)">
+                                </div>
+                            </div>
+                            <div class="row g-2">
+                                <div class="col-4">
+                                    <input type="text" id="treeName3" class="form-control form-control-sm"
+                                        placeholder="Opcion 3">
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" id="treeEv3" class="form-control form-control-sm"
+                                        placeholder="Datos 3 (Opcional, máx. 25)">
+                                </div>
                             </div>
                         </div>
                         <div class="row g-2 mb-3">
@@ -333,6 +363,11 @@
                                     onclick="generateRandomTreeData()">Aleatorio</button>
                             </div>
                         </div>
+
+                        <!-- Resumen dinámico del árbol -->
+                        <div id="treeSummary" class="mb-3 p-3 border rounded bg-light small" style="display: none;">
+                        </div>
+
                         <pre id="treeDiagram" class="mb-0 text-monospace small"
                             style="background: #f8f9fa; border: 1px solid #dee2e6; padding: 10px; border-radius: 4px;">...</pre>
                     </div>
@@ -348,7 +383,7 @@
                     <h3 class="fw-bold mb-0">Glosario de Conceptos</h3>
                     <img src="jackie chan sorprendido.png" alt="Confusión" width="80" class="rounded shadow-sm">
                 </div>
-                <p class="text-muted mt-2">Aprende los fundamentos de la probabilidad y estadística</p>
+                <p class="text-muted mt-2">Repasa los temas vistos en clase</p>
             </div>
 
             <!-- Grupo de Conceptos: Muestreo -->
@@ -447,10 +482,7 @@
                         <span>P</span> Permutación
                     </div>
                     <div class="concept-text">
-                        Es un arreglo de todos o parte de un conjunto de objetos donde el <strong>orden
-                            importa</strong>. Por ejemplo, en una carrera, el orden de llegada define quién
-                        es 1º, 2º y
-                        3º.
+                        Todas las combinaciones posibles de acuerdo a una indicacion donde el orden SI importa
                     </div>
                 </div>
             </div>
@@ -460,9 +492,7 @@
                         <span>C</span> Combinación
                     </div>
                     <div class="concept-text">
-                        Es una selección de elementos donde el <strong>orden NO importa</strong>. Por
-                        ejemplo, elegir 3
-                        frutas para una ensalada; no importa cuál elijas primero.
+                        todas las combinaciones posibles de acuerdo a una indicacion donde el orden NO importa
                     </div>
                 </div>
             </div>
@@ -472,9 +502,7 @@
                         <span>!</span> Factorial
                     </div>
                     <div class="concept-text">
-                        Es el producto de todos los números enteros positivos desde 1 hasta n. Se representa
-                        como
-                        <strong>n!</strong>. Es fundamental para calcular arreglos y selecciones.
+                        Producto de n hasta llegar a 1
                     </div>
                 </div>
             </div>

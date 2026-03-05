@@ -501,15 +501,31 @@ function calcComb() {
  */
 function generateRandomTreeData() {
     const examples = [
-        ["Sol/Águila", "Sol/Águila"],
-        ["Rojo/Verde/Azul", "S/M/L"],
-        ["Fruta/Galleta", "Agua/Jugo/Leche"],
-        ["Éxito/Falla", "Día/Noche"],
-        ["1/2/3", "A/B"]
+        ["Moneda", "Sol/Águila", "Dado", "1/2/3", "Turno", "A/B"],
+        ["Color", "Rojo/Verde", "Talla", "S/M", "Textura", "Liso/Rayas"],
+        ["Comida", "Fruta/Galleta", "Bebida", "Agua/Jugo", "", ""],
+        ["Clima", "Sol/Lluvia", "Viento", "Calma/Fuerte", "Día", "Hoy/Mañana"],
+        ["Sorteo", "1/2", "Grupo", "A/B", "Ronda", "Final/Semi"]
     ];
-    const rand = examples[Math.floor(Math.random() * examples.length)];
-    document.getElementById('treeEv1').value = rand[0];
-    document.getElementById('treeEv2').value = rand[1];
+
+    // 20% de probabilidad de generar un ejemplo con muchos datos (hasta 25)
+    if (Math.random() < 0.2) {
+        const largeData = Array.from({ length: 25 }, (_, i) => `D${i + 1}`).join('/');
+        document.getElementById('treeName1').value = "Nivel 1 (Máximo)";
+        document.getElementById('treeEv1').value = largeData;
+        document.getElementById('treeName2').value = "Nivel 2 (2 opciones)";
+        document.getElementById('treeEv2').value = "X/Y";
+        document.getElementById('treeName3').value = "";
+        document.getElementById('treeEv3').value = "";
+    } else {
+        const rand = examples[Math.floor(Math.random() * examples.length)];
+        document.getElementById('treeName1').value = rand[0];
+        document.getElementById('treeEv1').value = rand[1];
+        document.getElementById('treeName2').value = rand[2];
+        document.getElementById('treeEv2').value = rand[3];
+        document.getElementById('treeName3').value = rand[4] || "";
+        document.getElementById('treeEv3').value = rand[5] || "";
+    }
     generateTree();
 }
 
@@ -517,18 +533,65 @@ function generateRandomTreeData() {
  * Genera un diagrama de árbol textual basado en dos eventos.
  */
 function generateTree() {
+    const n1 = document.getElementById('treeName1').value.trim() || "Opcion 1";
     const ev1 = document.getElementById('treeEv1').value || "A/B";
+    const n2 = document.getElementById('treeName2').value.trim() || "Opcion 2";
     const ev2 = document.getElementById('treeEv2').value || "X/Y";
-    const parts1 = ev1.split('/').map(x => x.trim());
-    const parts2 = ev2.split('/').map(x => x.trim());
+    const n3 = document.getElementById('treeName3').value.trim() || "Opcion 3";
+    const ev3 = document.getElementById('treeEv3').value || "";
+
+    const parts1 = ev1.split('/').map(x => x.trim()).filter(x => x !== "").slice(0, 25);
+    const parts2 = ev2.split('/').map(x => x.trim()).filter(x => x !== "").slice(0, 25);
+    const parts3 = ev3 ? ev3.split('/').map(x => x.trim()).filter(x => x !== "").slice(0, 25) : [];
+
+    // --- Resumen dinámico ---
+    const summaryDiv = document.getElementById('treeSummary');
+    let totalComb = parts1.length * parts2.length;
+    if (parts3.length > 0) totalComb *= parts3.length;
+
+    let summaryHtml = `
+        <div class="mb-2"><strong>1) Opciones:</strong><br>${n1}<br>${n2}${parts3.length > 0 ? `<br>${n3}` : ''}</div>
+        <div class="mb-2"><strong>2) Datos de las opciones:</strong><br>
+            ${n1}: ${parts1.length}<br>
+            ${n2}: ${parts2.length}
+            ${parts3.length > 0 ? `<br>${n3}: ${parts3.length}` : ''}
+        </div>
+        <div class="mb-0"><strong>3) Multiplicar numeros de los datos:</strong><br>
+            ${parts1.length} x ${parts2.length}${parts3.length > 0 ? ` x ${parts3.length}` : ''} = <strong>${totalComb} combinaciones</strong>
+        </div>
+    `;
+    summaryDiv.innerHTML = summaryHtml;
+    summaryDiv.style.display = 'block';
 
     let diagram = "Inicio\n";
-    parts1.forEach(p1 => {
-        diagram += `├── ${p1}\n`;
-        parts2.forEach((p2, idx) => {
-            const prefix = (idx === parts2.length - 1) ? "│   └── " : "│   ├── ";
-            diagram += `${prefix}${p2}\n`;
-        });
+    if (n1) diagram += `└── [${n1}]\n`;
+
+    parts1.forEach((p1, idx1) => {
+        const isLast1 = idx1 === parts1.length - 1;
+        const prefix0 = n1 ? "    " : "";
+        diagram += `${prefix0}${isLast1 ? "└── " : "├── "}${p1}\n`;
+
+        const prefix1 = prefix0 + (isLast1 ? "    " : "│   ");
+
+        if (parts2.length > 0) {
+            if (n2) diagram += `${prefix1}└── [${n2}]\n`;
+
+            parts2.forEach((p2, idx2) => {
+                const isLast2 = idx2 === parts2.length - 1;
+                const prefix1_2 = prefix1 + (n2 ? "    " : "");
+                diagram += `${prefix1_2}${isLast2 ? "└── " : "├── "}${p2}\n`;
+
+                const prefix2 = prefix1_2 + (isLast2 ? "    " : "│   ");
+                if (parts3.length > 0) {
+                    if (n3) diagram += `${prefix2}└── [${n3}]\n`;
+                    parts3.forEach((p3, idx3) => {
+                        const isLast3 = idx3 === parts3.length - 1;
+                        const prefix2_2 = prefix2 + (n3 ? "    " : "");
+                        diagram += `${prefix2_2}${isLast3 ? "└── " : "├── "}${p3}\n`;
+                    });
+                }
+            });
+        }
     });
     document.getElementById('treeDiagram').innerText = diagram;
 }
